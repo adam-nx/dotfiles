@@ -1,0 +1,24 @@
+[user]
+    email = 51328998+adam-nx@users.noreply.github.com
+    name = Adam N.
+#   signingkey = 41545DADA6F43564
+
+[core]
+    editor = nvim
+    pager  = less -F -X
+
+[commit]
+#   gpgsign = true
+    verbose = true
+
+[init]
+    defaultBranch = main
+
+[color]
+    diff = auto
+
+[push]
+    default = current
+
+[pull]
+    ff = only
