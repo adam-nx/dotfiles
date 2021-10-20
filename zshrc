@@ -39,10 +39,12 @@ alias vim=nvim
 alias vi=nvim
 alias reload="source ~/.zshrc"
 alias sed=gsed
+alias venv="source ~/bin/venver"
+alias l="ls -ltr"
 
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PATH:$HOME/.local/bin"
 eval "$(pyenv init -)"
+
+eval "$(rbenv init -)"
 
 eval $(thefuck --alias)
 
@@ -50,5 +52,3 @@ eval $(thefuck --alias)
 
 eval "$(starship init zsh)"
 
-
-[ -s "/Users/adam/.scm_breeze/scm_breeze.sh" ] && source "/Users/adam/.scm_breeze/scm_breeze.sh"
