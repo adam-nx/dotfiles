@@ -1,4 +1,3 @@
-
 ###########################
 #     ~ . z s h r c       #
 ###########################
@@ -15,8 +14,15 @@ set -o emacs
 autoload -U select-word-style
 select-word-style bash
 
+#####  key bindings  ######
+bindkey '^[[1;3C' forward-word
+bindkey '^[[1;5C' forward-word
+bindkey '^[[1;3D' backward-word
+bindkey '^[[1;5D' backward-word
+
 bindkey "^[[A" history-search-backward
 bindkey "^[[B" history-search-forward
+###########################
 
 export SAVEHIST=10000
 export HISTSIZE=12000
@@ -39,12 +45,8 @@ alias vim=nvim
 alias vi=nvim
 alias reload="source ~/.zshrc"
 alias sed=gsed
-alias venv="source ~/bin/venver"
 alias l="ls -ltr"
 
-eval "$(pyenv init -)"
-
-eval "$(rbenv init -)"
 
 eval $(thefuck --alias)
 

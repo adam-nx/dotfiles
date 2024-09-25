@@ -1,0 +1,25 @@
+[window]
+startup_mode = "Maximized"
+decorations =  "Buttonless" 
+opacity = 0.9
+blur = true
+padding.x = 3
+padding.y = 3
+
+
+[font]
+size = 20
+normal = { family = "VictorMono Nerd Font Mono", style = "Light"}
+italic = { family = "VictorMono Nerd Font Mono", style = "Light Italic"}
+bold = { family = "VictorMono Nerd Font Mono", style = "Bold"}
+ 
+[shell]
+program = "/usr/local/bin/tmux"
+args = ["-u", "new-session", "-A", "-D", "-s", "x"]
+
+[selection]
+semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"
+save_to_clipboard = true
+
+
+# to show hints for hyperlinks: ctrl-shift-u
