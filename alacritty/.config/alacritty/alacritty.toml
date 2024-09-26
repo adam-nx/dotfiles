@@ -1,3 +1,8 @@
+##### ALACRITTY CONFIG ##### 
+# to show hints for hyperlinks= ctrl-shift-u 
+# https://github.com/adamn-x/dotfiles
+
+
 [window]
 startup_mode = "Maximized"
 decorations =  "Buttonless" 
@@ -14,12 +19,25 @@ italic = { family = "VictorMono Nerd Font Mono", style = "Light Italic"}
 bold = { family = "VictorMono Nerd Font Mono", style = "Bold"}
  
 [shell]
-program = "/usr/local/bin/tmux"
+program = "/usr/bin/tmux"
 args = ["-u", "new-session", "-A", "-D", "-s", "x"]
 
 [selection]
 semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"
 save_to_clipboard = true
 
+[keyboard]
+  bindings = [
+     { key="V", mods="Control|Shift", action="Paste" },
+     { key="C", mods="Control|Shift", action="Copy" },
+  ]
 
-# to show hints for hyperlinks: ctrl-shift-u
+[[hints.enabled]]
+  command = "xdg-open" # On Linux/BSD
+  hyperlinks = true
+  post_processing = true
+  persist = false
+  mouse.enabled = true
+  binding = { key = "U", mods = "Control|Shift" }
+  regex = "(ipfs:|ipns:|magnet:|mailto:|gemini://|gopher://|https://|http://|news:|file:|git://|ssh:|ftp://)[^\u0000-\u001F\u007F-\u009F<>\"\\s{-}\\^⟨⟩`]+"
+

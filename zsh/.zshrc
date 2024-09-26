@@ -47,9 +47,7 @@ alias reload="source ~/.zshrc"
 alias sed=gsed
 alias l="ls -ltr"
 
-
-eval $(thefuck --alias)
-
+export PATH=$PATH:/usr/local/go/bin
 [ -s "/Users/adamn/.scm_breeze/scm_breeze.sh" ] && source "/Users/adamn/.scm_breeze/scm_breeze.sh"
 
 eval "$(starship init zsh)"
