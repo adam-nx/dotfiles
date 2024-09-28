@@ -32,15 +32,14 @@ bindkey '^[[1;5D' backward-word
 bindkey "^[[A" history-search-backward
 bindkey "^[[B" history-search-forward
 
-export SAVEHIST=10000
-export HISTSIZE=12000
+export HISTFILE=~/.zsh_history
+export SAVEHIST=200000
 
 setopt always_to_end # move cursor to end if word had one match
 setopt auto_list # automatically list choices on ambiguous completion
 setopt auto_menu # automatically use menu completion
 setopt hist_ignore_all_dups # remove older duplicate entries from history
 setopt hist_reduce_blanks # remove superfluous blanks from history items
-setopt inc_append_history # save history entries as soon as they are entered
 setopt interactive_comments # allow comments in interactive shells
 setopt share_history # share history between different instances
 unsetopt correct_all # autocorrect commands

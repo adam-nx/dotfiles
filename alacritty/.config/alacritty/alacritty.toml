@@ -6,10 +6,10 @@
 [window]
 startup_mode = "Maximized"
 decorations =  "Buttonless" 
-opacity = 0.9
+opacity = 0.93
 blur = true
-padding.x = 3
-padding.y = 3
+padding.x = 0
+padding.y = 0
 
 
 [font]
