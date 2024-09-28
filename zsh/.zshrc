@@ -46,6 +46,7 @@ setopt share_history # share history between different instances
 unsetopt correct_all # autocorrect commands
 
 export TERM="xterm-256color"
+export TERMINAL="alacritty"
 export PATH=$HOME/bin:$PATH
 export PATH=$PATH:/usr/local/go/bin
 export EDITOR='nvim'
