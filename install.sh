@@ -14,6 +14,7 @@ sudo apt install --yes \
 	nvim \
 	picom \
 	ripgrep \
+	ruby \
 	stow \
 	tmux \
 	tree \
@@ -21,6 +22,7 @@ sudo apt install --yes \
 	zsh
 
 chsh -s /usr/bin/zsh
+curl -sS https://starship.rs/install.sh | sh
 
 git clone https://github.com/scmbreeze/scm_breeze.git ~/.scm_breeze
 ~/.scm_breeze/install.sh
@@ -30,6 +32,4 @@ sudo mkdir -p /usr/local/share/fonts/truetype
 sudo cp VictorMono/*.ttf /usr/local/share/fonts/truetype
 sudo fc-cache -fv
 rm -rf VictorMono/
-
-curl -sS https://starship.rs/install.sh | sh
 

@@ -182,15 +182,17 @@ bar {
         status_command i3status
         tray_output primary
 }
+
 exec_always --no-startup-id picom -b
 exec_always --no-startup-id nm-applet
-exec_always --no-startup-id feh --bg-scale /path/to/wallpaper.jpg
-exec_always --no-startup-id volumeicon
 exec_always --no-startup-id feh --bg-scale /home/adam/.config/wallpaper/wallpaper.jpg
 # exec_always --no-startup-id feh --recursive --bg-fill --randomize /home/adam/.config/wallpaper
+
+exec --no-startup-id "i3-msg 'workspace 1; append_layout /home/adam/.config/i3/workspace-1.json'"
+exec --no-startup-id "i3-msg 'workspace 2; append_layout /home/adam/.config/i3/workspace-2.json'"
+exec --no-startup-id "i3-msg 'workspace 4; append_layout /home/adam/.config/i3/workspace-4.json'"
 
 exec --no-startup-id alacritty
 exec --no-startup-id keepassxc
 exec --no-startup-id firefox
-
 
