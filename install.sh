@@ -2,7 +2,6 @@
 set -e
 
 sudo apt install --yes \
-	alacritty \
 	build-essential \
 	curl \
 	feh \
@@ -10,8 +9,6 @@ sudo apt install --yes \
 	git \
 	git-lfs \
 	i3 \
-	keepassxc \
-	nvim \
 	picom \
 	ripgrep \
 	ruby \

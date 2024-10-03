@@ -10,7 +10,7 @@ font pango:Victor Mono Nerd Font Mono 12
 
 for_window [class="^.*"] border pixel 2
                           # class                 border  backgr. text    indicator child_border
-for_window [class="^.*"] client.focused          #77dd77 #285577 #ffffff #2e9ef4   #285577
+for_window [class="^.*"] client.focused #77dd77 #285577 #ffffff #2e9ef4   #285577
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
 exec --no-startup-id dex --autostart --environment i3
@@ -38,7 +38,7 @@ floating_modifier $mod
 
 # move tiling windows via drag & drop by left-clicking into the title bar,
 # or left-clicking anywhere into the window while holding the floating modifier.
-tiling_drag modifier titlebar
+# tiling_drag modifier titlebar
 
 # start a terminal
 # bindsym $mod+Return exec i3-sensible-terminal
@@ -183,7 +183,7 @@ bar {
         tray_output primary
 }
 
-exec_always --no-startup-id picom -b
+# exec_always --no-startup-id picom -b
 exec_always --no-startup-id nm-applet
 exec_always --no-startup-id feh --bg-scale /home/adam/.config/wallpaper/wallpaper.jpg
 # exec_always --no-startup-id feh --recursive --bg-fill --randomize /home/adam/.config/wallpaper
@@ -191,12 +191,12 @@ exec_always --no-startup-id feh --bg-scale /home/adam/.config/wallpaper/wallpape
 # exec --no-startup-id "i3-msg 'workspace 1; append_layout /home/adam/.config/i3/workspace-1.json'"
 # exec --no-startup-id "i3-msg 'workspace 2; append_layout /home/adam/.config/i3/workspace-2.json'"
 # exec --no-startup-id "i3-msg 'workspace 4; append_layout /home/adam/.config/i3/workspace-4.json'"
-
-assign [class="Alacritty"] $ws1 # Terminal in workspace 1
-assign [class="firefox"]   $ws2 # Firefox browser in workspace 2
-assign [class="KeePassXC"] $ws10 # Password manager in workspace 10
-
-exec --no-startup-id alacritty
-exec --no-startup-id keepassxc
-exec --no-startup-id firefox
-
+#
+# assign [class="Alacritty"] $ws1 # Terminal in workspace 1
+# assign [class="firefox"]   $ws2 # Firefox browser in workspace 2
+# assign [class="KeePassXC"] $ws10 # Password manager in workspace 10
+#
+# exec --no-startup-id alacritty
+# exec --no-startup-id keepassxc
+# exec --no-startup-id firefox
+#

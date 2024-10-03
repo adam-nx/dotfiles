@@ -33,7 +33,9 @@ bindkey "^[[A" history-search-backward
 bindkey "^[[B" history-search-forward
 
 export HISTFILE=~/.zsh_history
-export SAVEHIST=200000
+export HISTSIZE=10000
+export SAVEHIST=50000
+
 
 setopt always_to_end # move cursor to end if word had one match
 setopt auto_list # automatically list choices on ambiguous completion
@@ -56,8 +58,14 @@ alias vi=nvim
 alias reload="source ~/.zshrc"
 alias l="ls -ltr"
 alias gsed=sed
+alias pbcopy="xclip -selection clipboard -i"
 
 [ -s "${HOME}/.scm_breeze/scm_breeze.sh" ] && source "${HOME}/.scm_breeze/scm_breeze.sh"
 
+export FZF_DEFAULT_OPTS='--height 30% --layout reverse'
+source <(fzf --zsh)
+
+source <(pillar completion zsh)
+source <(kubectl completion zsh)
 
 eval "$(starship init zsh)"

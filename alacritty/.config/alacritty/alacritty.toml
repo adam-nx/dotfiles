@@ -1,12 +1,12 @@
 ##### ALACRITTY CONFIG ##### 
-# to show hints for hyperlinks= ctrl-shift-u 
-# https://github.com/adamn-x/dotfiles
+# to show hints for hyperlinks= alt-u 
+# https://github.com/adam-nx/dotfiles
 
 
 [window]
 startup_mode = "Maximized"
 decorations =  "Buttonless" 
-opacity = 0.93
+opacity = 0.94
 blur = true
 padding.x = 0
 padding.y = 0
@@ -38,6 +38,6 @@ save_to_clipboard = true
   post_processing = true
   persist = false
   mouse.enabled = true
-  binding = { key = "U", mods = "Control|Shift" }
+  binding = { key = "U", mods = "Alt" }
   regex = "(ipfs:|ipns:|magnet:|mailto:|gemini://|gopher://|https://|http://|news:|file:|git://|ssh:|ftp://)[^\u0000-\u001F\u007F-\u009F<>\"\\s{-}\\^⟨⟩`]+"
 
