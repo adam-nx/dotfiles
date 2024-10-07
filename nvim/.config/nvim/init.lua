@@ -561,8 +561,26 @@ require('lazy').setup {
           html = {},
           jsonls = {},
           marksman = {},
-          ts_ls = {},
-          vuels = {},
+          ts_ls = {
+            init_options = {
+              plugins = {
+                {
+                  name = '@vue/typescript-plugin',
+                  location = '/home/adam/.local/share/nvim/mason/packages/vue-language-server/node_modules/@vue/language-server',
+                  languages = { 'vue' },
+                },
+              },
+            },
+            filetypes = {
+              'javascript',
+              'typescript',
+              'javascriptreact',
+              'typescriptreact',
+              'vue',
+            },
+          },
+          volar = {},
+          tailwindcss = {},
           lua_ls = {
             -- cmd = {...},
             -- filetypes = { ...},
@@ -1251,16 +1269,9 @@ require('lazy').setup {
         {
           '<leader>to',
           function()
-            require('neotest').output.open { enter = true, auto_close = true }
-          end,
-          desc = '[t]est [o]utput',
-        },
-        {
-          '<leader>tO',
-          function()
             require('neotest').output_panel.toggle()
           end,
-          desc = '[t]est [O]utput panel',
+          desc = '[t]est [o]utput panel',
         },
         {
           '<leader>tt',
