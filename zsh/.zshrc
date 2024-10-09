@@ -48,9 +48,16 @@ unsetopt correct_all # autocorrect commands
 
 export TERM="xterm-256color"
 export TERMINAL="alacritty"
+export EDITOR='nvim'
+
 export PATH=$HOME/bin:$PATH
 export PATH=$PATH:/usr/local/go/bin
-export EDITOR='nvim'
+export PATH="$PATH":"$HOME/fvm/default/bin"
+export PATH="$PATH":"$HOME/.pub-cache/bin"
+
+export ANDROID_HOME="${HOME}/Android/Sdk"
+export PATH="${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin:${ANDROID_HOME}/platform-tools:${ANDROID_HOME}/cmdline-tools/latest/bin"
+
 
 # Aliases
 alias vim=nvim
@@ -68,5 +75,6 @@ source <(fzf --zsh)
 
 source <(pillar completion zsh)
 source <(kubectl completion zsh)
+[[ -f /home/adam/.config/.dart-cli-completion/zsh-config.zsh ]] && . /home/adam/.config/.dart-cli-completion/zsh-config.zsh || true
 
 eval "$(starship init zsh)"

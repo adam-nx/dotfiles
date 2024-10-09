@@ -618,6 +618,9 @@ require('lazy').setup {
           }),
         }
 
+        -- set up dartls apart from mason as it doesn't require any installation
+        require('lspconfig').dartls.setup {}
+
         require('mason-lspconfig').setup {
           handlers = {
             function(server_name)
@@ -1201,21 +1204,6 @@ require('lazy').setup {
         require('neotest').setup(opts)
       end,
 
-      -- opts = {
-      --   adapters = {
-      --     ['neotest-golang'] = {
-      --       go_test_args = { '-v', '-count=1', '-timeout=120s', '-tags=debug,test,service_tests,system_tests', '-p=12' },
-      --       go_list_args = { '-tags=debug,test,service_tests,system_tests' },
-      --       dap_go_enabled = true, -- requires leoluz/nvim-dap-go
-      --       dap_go_opts = {
-      --         delve = {
-      --           build_flags = { '-tags=debug,test,service_tests,system_tests' },
-      --         },
-      --       },
-      --     },
-      --   },
-      -- },
-
       keys = {
         {
           '<leader>ta',
@@ -1288,6 +1276,39 @@ require('lazy').setup {
           desc = 'Debug nearest test',
         },
       },
+    },
+
+    {
+      'ThePrimeagen/harpoon',
+      branch = 'harpoon2',
+      dependencies = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope.nvim' },
+      config = function()
+        local harpoon = require 'harpoon'
+        harpoon:setup {}
+
+        vim.keymap.set('n', '<leader>a', function()
+          harpoon:list():add()
+        end)
+        vim.keymap.set('n', '<C-e>', function()
+          harpoon.ui:toggle_quick_menu(harpoon:list())
+        end)
+
+        vim.keymap.set('n', '11', function()
+          harpoon:list():select(1)
+        end)
+        vim.keymap.set('n', '22', function()
+          harpoon:list():select(2)
+        end)
+        vim.keymap.set('n', '33', function()
+          harpoon:list():select(3)
+        end)
+        vim.keymap.set('n', '44', function()
+          harpoon:list():select(4)
+        end)
+        vim.keymap.set('n', '55', function()
+          harpoon:list():select(4)
+        end)
+      end,
     },
 
     -- NOTE: Next step on your Neovim journey: Add/Configure additional plugins for Kickstart
