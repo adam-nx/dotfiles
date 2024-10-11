@@ -16,7 +16,7 @@ vim.g.have_nerd_font = true
 vim.opt.number = true
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
-vim.opt.relativenumber = false
+vim.opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -210,6 +210,10 @@ require('lazy').setup {
       'folke/which-key.nvim',
       event = 'VimEnter', -- Sets the loading event to 'VimEnter'
       opts = {
+        filter = function(mapping)
+          -- exclude mappings without a description
+          return mapping.desc and mapping.desc ~= ''
+        end,
         icons = {
           -- set icon mappings to true if you have a Nerd Font
           mappings = vim.g.have_nerd_font,
@@ -960,185 +964,129 @@ require('lazy').setup {
           },
         }
 
-        vim.keymap.set('n', '<leader>j', function()
-          require('journal').command 'week'
-        end, { desc = 'Weekly [J]ournal entry' })
+        -- -- stylua: ignore
+        --   vim.keymap.set('n', '<leader>j', function() require('journal').command 'week' end, { desc = 'Weekly [J]ournal entry' })
       end,
-    },
-
-    -- DAP setup
-    {
-      'mfussenegger/nvim-dap',
-      event = 'VeryLazy',
+      -- stylua: ignore
       keys = {
-        {
-          '<leader>db',
-          function()
-            require('dap').toggle_breakpoint()
-          end,
-          desc = 'toggle [d]ebug [b]reakpoint',
-        },
-        {
-          '<leader>dB',
-          function()
-            require('dap').set_breakpoint(vim.fn.input 'Breakpoint condition: ')
-          end,
-          desc = '[d]ebug [B]reakpoint',
-        },
-        {
-          '<leader>dc',
-          function()
-            require('dap').continue()
-          end,
-          desc = '[d]ebug [c]ontinue (start here)',
-        },
-        {
-          '<leader>dC',
-          function()
-            require('dap').run_to_cursor()
-          end,
-          desc = '[d]ebug [C]ursor',
-        },
-        {
-          '<leader>dg',
-          function()
-            require('dap').goto_()
-          end,
-          desc = '[d]ebug [g]o to line',
-        },
-        {
-          '<leader>do',
-          function()
-            require('dap').step_over()
-          end,
-          desc = '[d]ebug step [o]ver',
-        },
-        {
-          '<leader>dO',
-          function()
-            require('dap').step_out()
-          end,
-          desc = '[d]ebug step [O]ut',
-        },
-        {
-          '<leader>di',
-          function()
-            require('dap').step_into()
-          end,
-          desc = '[d]ebug [i]nto',
-        },
-        {
-          '<leader>dj',
-          function()
-            require('dap').down()
-          end,
-          desc = '[d]ebug [j]ump down',
-        },
-        {
-          '<leader>dk',
-          function()
-            require('dap').up()
-          end,
-          desc = '[d]ebug [k]ump up',
-        },
-        {
-          '<leader>dl',
-          function()
-            require('dap').run_last()
-          end,
-          desc = '[d]ebug [l]ast',
-        },
-        {
-          '<leader>dp',
-          function()
-            require('dap').pause()
-          end,
-          desc = '[d]ebug [p]ause',
-        },
-        {
-          '<leader>dr',
-          function()
-            require('dap').repl.toggle()
-          end,
-          desc = '[d]ebug [r]epl',
-        },
-        {
-          '<leader>dR',
-          function()
-            require('dap').clear_breakpoints()
-          end,
-          desc = '[d]ebug [R]emove breakpoints',
-        },
-        {
-          '<leader>ds',
-          function()
-            require('dap').session()
-          end,
-          desc = '[d]ebug [s]ession',
-        },
-        {
-          '<leader>dt',
-          function()
-            require('dap').terminate()
-          end,
-          desc = '[d]ebug [t]erminate',
-        },
-        {
-          '<leader>dw',
-          function()
-            require('dap.ui.widgets').hover()
-          end,
-          desc = '[d]ebug [w]idgets',
-        },
+        { '<leader>j', function() require('journal').command 'week' end, desc = 'Weekly [J]ournal entry', },
+
       },
     },
 
-    -- DAP UI setup
-    {
-      'rcarriga/nvim-dap-ui',
-      event = 'VeryLazy',
-      dependencies = {
-        'nvim-neotest/nvim-nio',
-        'mfussenegger/nvim-dap',
-      },
-      opts = {},
-      config = function(_, opts)
-        -- setup dap config by VsCode launch.json file
-        require('dap.ext.vscode').load_launchjs()
-        local dap = require 'dap'
-        local dapui = require 'dapui'
-        dapui.setup(opts)
-        dap.listeners.after.event_initialized['dapui_config'] = function()
-          dapui.open {}
-        end
-        dap.listeners.before.event_terminated['dapui_config'] = function()
-          dapui.close {}
-        end
-        dap.listeners.before.event_exited['dapui_config'] = function()
-          dapui.close {}
-        end
-      end,
-      keys = {
-        {
-          '<leader>du',
-          function()
-            require('dapui').toggle {}
-          end,
-          desc = '[d]ap [u]i',
-        },
-        {
-          '<leader>de',
-          function()
-            require('dapui').eval()
-          end,
-          desc = '[d]ap [e]val',
-        },
-      },
-    },
-    {
-      'theHamsta/nvim-dap-virtual-text',
-      opts = {},
-    },
+    -- -- DAP setup
+    -- {
+    --   'mfussenegger/nvim-dap',
+    --   event = 'VeryLazy',
+    --    -- stylua: ignore
+    --   keys = {
+    --     { "<leader>d", "", desc = "+debug", mode = {"n", "v"} },
+    --     { "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, desc = "Breakpoint Condition" },
+    --     { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
+    --     { "<leader>dc", function() require("dap").continue() end, desc = "Continue" },
+    --     -- { "<leader>da", function() require("dap").continue({ before = get_args }) end, desc = "Run with Args" },
+    --     { "<leader>dC", function() require("dap").run_to_cursor() end, desc = "Run to Cursor" },
+    --     { "<leader>dg", function() require("dap").goto_() end, desc = "Go to Line (No Execute)" },
+    --     { "<leader>di", function() require("dap").step_into() end, desc = "Step Into" },
+    --     { "<leader>dj", function() require("dap").down() end, desc = "Down" },
+    --     { "<leader>dk", function() require("dap").up() end, desc = "Up" },
+    --     { "<leader>dl", function() require("dap").run_last() end, desc = "Run Last" },
+    --     { "<leader>do", function() require("dap").step_out() end, desc = "Step Out" },
+    --     { "<leader>dO", function() require("dap").step_over() end, desc = "Step Over" },
+    --     { "<leader>dp", function() require("dap").pause() end, desc = "Pause" },
+    --     { "<leader>dr", function() require("dap").repl.toggle() end, desc = "Toggle REPL" },
+    --     { "<leader>ds", function() require("dap").session() end, desc = "Session" },
+    --     { "<leader>dt", function() require("dap").terminate() end, desc = "Terminate" },
+    --     { "<leader>dw", function() require("dap.ui.widgets").hover() end, desc = "Widgets" },
+    --   },
+    -- },
+    --
+    -- -- DAP UI setup
+    -- {
+    --   'rcarriga/nvim-dap-ui',
+    --   event = 'VeryLazy',
+    --   dependencies = {
+    --     'nvim-neotest/nvim-nio',
+    --     'mfussenegger/nvim-dap',
+    --     'williamboman/mason.nvim',
+    --     'jay-babu/mason-nvim-dap.nvim',
+    --     'leoluz/nvim-dap-go',
+    --   },
+    --   opts = {},
+    --   config = function(_, opts)
+    --     -- setup dap config by VsCode launch.json file
+    --     -- require('dap.ext.vscode').load_launchjs()
+    --     -- setup dap config by VsCode launch.json file
+    --     -- local vscode = require 'dap.ext.vscode'
+    --     -- local json = require 'plenary.json'
+    --     -- vscode.json_decode = function(str)
+    --     --   return vim.json.decode(json.json_strip_comments(str))
+    --     -- end
+    --     --
+    --     -- -- Extends dap.configurations with entries read from .vscode/launch.json
+    --     -- if vim.fn.filereadable '.vscode/launch.json' then
+    --     --   vscode.load_launchjs()
+    --     -- end
+    --
+    --     local dap = require 'dap'
+    --     local dapui = require 'dapui'
+    --     dapui.setup(opts)
+    --     dap.listeners.after.event_initialized['dapui_config'] = dapui.open
+    --     dap.listeners.before.event_terminated['dapui_config'] = dapui.close
+    --     dap.listeners.before.event_exited['dapui_config'] = dapui.close
+    --
+    --     require('dap-go').setup {
+    --       delve = {
+    --         build_flags = {
+    --           '-tags=debug,test,service_tests,system_tests',
+    --         },
+    --       },
+    --     }
+    --
+    --     require('mason-nvim-dap').setup {
+    --       -- Makes a best effort to setup the various debuggers with
+    --       -- reasonable debug configurations
+    --       automatic_installation = true,
+    --
+    --       -- You can provide additional configuration to the handlers,
+    --       -- see mason-nvim-dap README for more information
+    --       -- handlers = {},
+    --
+    --       -- You'll need to check that you have the required things installed
+    --       -- online, please don't ask me how to install them :)
+    --       ensure_installed = {
+    --         -- Update this to ensure that you have the debuggers for the langs you want
+    --         'delve',
+    --       },
+    --     }
+    --   end,
+    --   keys = function(_, keys)
+    --     local dap = require 'dap'
+    --     local dapui = require 'dapui'
+    --     return {
+    --       -- Basic debugging keymaps, feel free to change to your liking!
+    --       { '<F5>', dap.continue, desc = 'Debug: Start/Continue' },
+    --       { '<F1>', dap.step_into, desc = 'Debug: Step Into' },
+    --       { '<F2>', dap.step_over, desc = 'Debug: Step Over' },
+    --       { '<F3>', dap.step_out, desc = 'Debug: Step Out' },
+    --       { '<leader>b', dap.toggle_breakpoint, desc = 'Debug: Toggle Breakpoint' },
+    --       {
+    --         '<leader>B',
+    --         function()
+    --           dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
+    --         end,
+    --         desc = 'Debug: Set Breakpoint',
+    --       },
+    --       -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
+    --       { '<F7>', dapui.toggle, desc = 'Debug: See last session result.' },
+    --       unpack(keys),
+    --     }
+    --   end,
+    -- },
+    -- {
+    --   'theHamsta/nvim-dap-virtual-text',
+    --   opts = {},
+    -- },
 
     {
       'nvim-neotest/neotest',
@@ -1150,7 +1098,7 @@ require('lazy').setup {
         'nvim-treesitter/nvim-treesitter',
         {
           'fredrikaverpil/neotest-golang',
-          version = '*', -- Installation
+          version = '*',
           dependencies = {
             'leoluz/nvim-dap-go',
           },
@@ -1204,77 +1152,18 @@ require('lazy').setup {
         require('neotest').setup(opts)
       end,
 
+      -- stylua: ignore
       keys = {
-        {
-          '<leader>ta',
-          function()
-            require('neotest').run.attach()
-          end,
-          desc = '[t]est [a]ttach',
-        },
-        {
-          '<leader>tf',
-          function()
-            require('neotest').run.run(vim.fn.expand '%')
-          end,
-          desc = '[t]est run [f]ile',
-        },
-        {
-          '<leader>tA',
-          function()
-            require('neotest').run.run(vim.uv.cwd())
-          end,
-          desc = '[t]est [A]ll files',
-        },
-        {
-          '<leader>tS',
-          function()
-            require('neotest').run.run { suite = true }
-          end,
-          desc = '[t]est [S]uite',
-        },
-        {
-          '<leader>tn',
-          function()
-            require('neotest').run.run()
-          end,
-          desc = '[t]est [n]earest',
-        },
-        {
-          '<leader>tl',
-          function()
-            require('neotest').run.run_last()
-          end,
-          desc = '[t]est [l]ast',
-        },
-        {
-          '<leader>ts',
-          function()
-            require('neotest').summary.toggle()
-          end,
-          desc = '[t]est [s]ummary',
-        },
-        {
-          '<leader>to',
-          function()
-            require('neotest').output_panel.toggle()
-          end,
-          desc = '[t]est [o]utput panel',
-        },
-        {
-          '<leader>tt',
-          function()
-            require('neotest').run.stop()
-          end,
-          desc = '[t]est [t]erminate',
-        },
-        {
-          '<leader>td',
-          function()
-            require('neotest').run.run { suite = false, strategy = 'dap' }
-          end,
-          desc = 'Debug nearest test',
-        },
+        { '<leader>ta', function() require('neotest').run.attach() end, desc = '[t]est [a]ttach', },
+        { '<leader>tf', function() require('neotest').run.run(vim.fn.expand '%') end, desc = '[t]est run [f]ile', },
+        { '<leader>tA', function() require('neotest').run.run(vim.uv.cwd()) end, desc = '[t]est [A]ll files', },
+        { '<leader>tS', function() require('neotest').run.run { suite = true } end, desc = '[t]est [S]uite', },
+        { '<leader>tn', function() require('neotest').run.run() end, desc = '[t]est [n]earest', },
+        { '<leader>tl', function() require('neotest').run.run_last() end, desc = '[t]est [l]ast', },
+        { '<leader>ts', function() require('neotest').summary.toggle() end, desc = '[t]est [s]ummary', },
+        { '<leader>to', function() require('neotest').output_panel.toggle() end, desc = '[t]est [o]utput panel', },
+        { '<leader>tt', function() require('neotest').run.stop() end, desc = '[t]est [t]erminate', },
+        { '<leader>td', function() require('neotest').run.run { suite = false, strategy = 'dap' } end, desc = 'Debug nearest test', },
       },
     },
 
@@ -1285,30 +1174,35 @@ require('lazy').setup {
       config = function()
         local harpoon = require 'harpoon'
         harpoon:setup {}
-
-        vim.keymap.set('n', '<leader>a', function()
-          harpoon:list():add()
-        end)
-        vim.keymap.set('n', '<C-e>', function()
-          harpoon.ui:toggle_quick_menu(harpoon:list())
-        end)
-
-        vim.keymap.set('n', '11', function()
-          harpoon:list():select(1)
-        end)
-        vim.keymap.set('n', '22', function()
-          harpoon:list():select(2)
-        end)
-        vim.keymap.set('n', '33', function()
-          harpoon:list():select(3)
-        end)
-        vim.keymap.set('n', '44', function()
-          harpoon:list():select(4)
-        end)
-        vim.keymap.set('n', '55', function()
-          harpoon:list():select(4)
-        end)
       end,
+      keys = function()
+        -- stylua: ignore
+        local keys = {
+            { '<leader>a', function() require('harpoon'):list():add() end, desc = 'H[a]rpoon File', },
+            { '<leader>A', function() local harpoon = require 'harpoon' harpoon.ui:toggle_quick_menu(harpoon:list()) end, desc = 'H[A]rpoon Quick Menu',
+          },
+        }
+        for i = 1, 9 do
+           -- stylua: ignore
+          table.insert(keys, { '<leader>' .. i, function() require('harpoon'):list():select(i) end, })
+        end
+        return keys
+      end,
+    },
+
+    {
+      'folke/persistence.nvim',
+      event = 'BufReadPre', -- this will only start session saving when an actual file was opened
+      opts = {
+        -- add any custom options here
+      },
+       -- stylua: ignore
+      keys = {
+          { "<leader>qs", function() require("persistence").load() end, desc = "Restore Session" },
+          { "<leader>qS", function() require("persistence").select() end,desc = "Select Session" },
+          { "<leader>ql", function() require("persistence").load({ last = true }) end, desc = "Restore Last Session" },
+          { "<leader>qd", function() require("persistence").stop() end, desc = "Don't Save Current Session" },
+        },
     },
 
     -- NOTE: Next step on your Neovim journey: Add/Configure additional plugins for Kickstart

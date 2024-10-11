@@ -30,3 +30,4 @@ sudo cp VictorMono/*.ttf /usr/local/share/fonts/truetype
 sudo fc-cache -fv
 rm -rf VictorMono/
 
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm

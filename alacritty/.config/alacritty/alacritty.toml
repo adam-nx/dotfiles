@@ -4,27 +4,27 @@
 
 
 [window]
-startup_mode = "Maximized"
-decorations =  "Buttonless" 
-opacity = 0.94
-blur = true
-padding.x = 0
-padding.y = 0
-
+  startup_mode = "Maximized"
+  decorations =  "None" 
+  opacity = 0.96
+  blur = true
+  padding.x = 0
+  padding.y = 0
+  
 
 [font]
-size = 16
-normal = { family = "VictorMono Nerd Font Mono", style = "Light"}
-italic = { family = "VictorMono Nerd Font Mono", style = "Light Italic"}
-bold = { family = "VictorMono Nerd Font Mono", style = "Bold"}
- 
+  size = 20
+  normal = { family = "Mononoki Nerd Font", style = "Light"}
+  italic = { family = "Mononoki Nerd Font", style = "Light Italic"}
+  bold = { family = "Mononoki Nerd Font", style = "Bold"}
+
 [shell]
-program = "/usr/bin/tmux"
-args = ["-u", "new-session", "-A", "-D", "-s", "x"]
+  program = "/usr/bin/tmux"
+  args = ["-u", "new-session", "-A", "-D", "-s", "x"]
 
 [selection]
-semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"
-save_to_clipboard = true
+  semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"
+  save_to_clipboard = true
 
 [keyboard]
   bindings = [
@@ -40,4 +40,29 @@ save_to_clipboard = true
   mouse.enabled = true
   binding = { key = "U", mods = "Alt" }
   regex = "(ipfs:|ipns:|magnet:|mailto:|gemini://|gopher://|https://|http://|news:|file:|git://|ssh:|ftp://)[^\u0000-\u001F\u007F-\u009F<>\"\\s{-}\\^⟨⟩`]+"
+
+# https://github.com/zatchheems/tokyo-night-alacritty-theme
+[colors.bright]
+  black = "#444b6a"
+  blue = "#7da6ff"
+  cyan = "#0db9d7"
+  green = "#b9f27c"
+  magenta = "#bb9af7"
+  red = "#ff7a93"
+  white = "#acb0d0"
+  yellow = "#ff9e64"
+
+[colors.normal]
+  black = "#32344a"
+  blue = "#7aa2f7"
+  cyan = "#449dab"
+  green = "#9ece6a"
+  magenta = "#ad8ee6"
+  red = "#f7768e"
+  white = "#787c99"
+  yellow = "#e0af68"
+
+[colors.primary]
+  background = "#1a1b26"
+  foreground = "#a9b1d6"
 
