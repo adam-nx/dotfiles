@@ -6,7 +6,7 @@
 [window]
   startup_mode = "Maximized"
   decorations =  "None" 
-  opacity = 0.96
+  opacity = 0.97
   blur = true
   padding.x = 0
   padding.y = 0
@@ -18,8 +18,8 @@
   italic = { family = "Mononoki Nerd Font", style = "Light Italic"}
   bold = { family = "Mononoki Nerd Font", style = "Bold"}
 
-[shell]
-  program = "/usr/bin/tmux"
+[terminal.shell]
+  program = "/usr/local/bin/tmux"
   args = ["-u", "new-session", "-A", "-D", "-s", "x"]
 
 [selection]

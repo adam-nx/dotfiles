@@ -2,6 +2,7 @@
 #  ~ / . z s h r c   #
 ######################
 
+fpath+=~/.zsh_functions
 zstyle ':completion:*' menu select
 zstyle ':completion:*' group-name ''
 zstyle ':completion:::::' completer _expand _complete _ignored _approximate # enable approximate matches
