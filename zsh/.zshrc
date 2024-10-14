@@ -3,6 +3,8 @@
 ######################
 
 fpath+=~/.zsh_functions
+fpath+=~/.zsh/zsh-completions/src
+
 zstyle ':completion:*' menu select
 zstyle ':completion:*' group-name ''
 zstyle ':completion:::::' completer _expand _complete _ignored _approximate # enable approximate matches
@@ -70,12 +72,23 @@ alias pbcopy="xclip -selection clipboard -i"
 
 [ -s "${HOME}/.scm_breeze/scm_breeze.sh" ] && source "${HOME}/.scm_breeze/scm_breeze.sh"
 
-export FZF_DEFAULT_OPTS='--height 30% --layout reverse'
-zmodload -F zsh/parameter -p:history # possible fix for partial history
-source <(fzf --zsh)
+# export FZF_DEFAULT_OPTS='--height 30% --layout reverse'
+# zmodload -F zsh/parameter -p:history # possible fix for partial history
+# source <(fzf --zsh)
 
 source <(pillar completion zsh)
 source <(kubectl completion zsh)
 [[ -f /home/adam/.config/.dart-cli-completion/zsh-config.zsh ]] && . /home/adam/.config/.dart-cli-completion/zsh-config.zsh || true
+
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# zsh-history-substring-search configuration
+bindkey "$terminfo[kcuu1]" history-substring-search-up
+bindkey "$terminfo[kcud1]" history-substring-search-down
+
+HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1
+HISTORY_SUBSTRING_SEARCH_FUZZY=1
 
 eval "$(starship init zsh)"
