@@ -78,7 +78,7 @@ vim.opt.expandtab = true
 
 vim.opt.smartindent = true
 
-vim.opt.wrap = false
+vim.opt.wrap = true
 
 vim.opt.swapfile = false
 vim.opt.backup = false
@@ -179,6 +179,27 @@ require('lazy').setup {
     },
   },
   spec = {
+    {
+      'stevearc/oil.nvim',
+      lazy = false,
+      ---@module 'oil'
+      ---@type oil.SetupOpts
+      opts = {
+        default_file_explorer = true,
+        view_options = {
+          show_hidden = true,
+        },
+      },
+      -- Optional dependencies
+      dependencies = {
+        { 'echasnovski/mini.icons', opts = {} },
+      },
+      -- stylua: ignore
+      keys = {
+        { '-', '<CMD>Oil<CR>', desc = 'Open parent directory', mode = { 'n' } },
+      },
+    },
+
     -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
     'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
     'tpope/vim-fugitive',
@@ -338,12 +359,9 @@ require('lazy').setup {
           -- You can put your default mappings / updates / etc. in here
           --  All the info you're looking for is in `:help telescope.setup()`
           --
-          -- defaults = {
-          --   mappings = {
-          --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-          --   },
-          -- },
-          -- pickers = {}
+          defaults = {
+            path_display = { 'shorten' },
+          },
           extensions = {
             ['ui-select'] = {
               require('telescope.themes').get_dropdown(),
@@ -359,7 +377,7 @@ require('lazy').setup {
         local builtin = require 'telescope.builtin'
         vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
         vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-        vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
+        vim.keymap.set('n', '<leader>sf', '<Cmd>Telescope find_files hidden=true<CR>', { desc = '[S]earch [F]iles' })
         vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
         vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
         vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
@@ -581,6 +599,7 @@ require('lazy').setup {
           helm_ls = {},
           html = {},
           jsonls = {},
+          yamlls = {},
           marksman = {},
           ts_ls = {
             init_options = {
@@ -920,26 +939,6 @@ require('lazy').setup {
     },
 
     {
-      'stevearc/oil.nvim',
-      ---@module 'oil'
-      ---@type oil.SetupOpts
-      opts = {
-        default_file_explorer = true,
-        view_options = {
-          show_hidden = true,
-        },
-      },
-      -- Optional dependencies
-      dependencies = {
-        { 'echasnovski/mini.icons', opts = {} },
-      },
-      -- stylua: ignore
-      keys = {
-        { '-', '<CMD>Oil<CR>', desc = 'Open parent directory', mode = { 'n' } },
-      },
-    },
-
-    {
       'jakobkhansen/journal.nvim',
       config = function()
         require('journal').setup {
@@ -1090,10 +1089,10 @@ require('lazy').setup {
       },
        -- stylua: ignore
       keys = {
-          { "<leader>qs", function() require("persistence").load() end, desc = "Restore Session" },
-          { "<leader>qS", function() require("persistence").select() end,desc = "Select Session" },
-          { "<leader>ql", function() require("persistence").load({ last = true }) end, desc = "Restore Last Session" },
-          { "<leader>qd", function() require("persistence").stop() end, desc = "Don't Save Current Session" },
+          { "<leader>zs", function() require("persistence").load() end, desc = "Restore Session" },
+          { "<leader>zS", function() require("persistence").select() end,desc = "Select Session" },
+          { "<leader>zl", function() require("persistence").load({ last = true }) end, desc = "Restore Last Session" },
+          { "<leader>zd", function() require("persistence").stop() end, desc = "Don't Save Current Session" },
         },
     },
 

@@ -54,6 +54,7 @@ export TERMINAL="alacritty"
 export EDITOR='nvim'
 
 export PATH=$HOME/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
 export PATH=$PATH:/usr/local/go/bin
 export PATH="$PATH":"$HOME/fvm/default/bin"
 export PATH="$PATH":"$HOME/.pub-cache/bin"
@@ -73,8 +74,8 @@ alias pbcopy="xclip -selection clipboard -i"
 [ -s "${HOME}/.scm_breeze/scm_breeze.sh" ] && source "${HOME}/.scm_breeze/scm_breeze.sh"
 
 # export FZF_DEFAULT_OPTS='--height 30% --layout reverse'
-# zmodload -F zsh/parameter -p:history # possible fix for partial history
-# source <(fzf --zsh)
+zmodload -F zsh/parameter -p:history # possible fix for partial history
+source <(fzf --zsh)
 
 source <(pillar completion zsh)
 source <(kubectl completion zsh)
