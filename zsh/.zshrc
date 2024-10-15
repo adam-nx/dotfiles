@@ -32,8 +32,8 @@ bindkey '^[[1;5C' forward-word
 bindkey '^[[1;3D' backward-word
 bindkey '^[[1;5D' backward-word
 
-bindkey "^[[A" history-search-backward
-bindkey "^[[B" history-search-forward
+# bindkey "^[[A" history-search-backward
+# bindkey "^[[B" history-search-forward
 
 export HISTFILE=~/.zsh_history
 export HISTSIZE=10000
@@ -80,15 +80,13 @@ source <(pillar completion zsh)
 source <(kubectl completion zsh)
 [[ -f /home/adam/.config/.dart-cli-completion/zsh-config.zsh ]] && . /home/adam/.config/.dart-cli-completion/zsh-config.zsh || true
 
+export HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1
+export HISTORY_SUBSTRING_SEARCH_FUZZY=1
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-# zsh-history-substring-search configuration
 bindkey "$terminfo[kcuu1]" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
 
-HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1
-HISTORY_SUBSTRING_SEARCH_FUZZY=1
 
 eval "$(starship init zsh)"

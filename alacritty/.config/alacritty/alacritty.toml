@@ -1,6 +1,5 @@
 ##### ALACRITTY CONFIG ##### 
 # to show hints for hyperlinks= alt-u 
-# https://github.com/adam-nx/dotfiles
 
 
 [window]
@@ -10,13 +9,12 @@
   blur = true
   padding.x = 0
   padding.y = 0
-  
 
 [font]
-  size = 20
-  normal = { family = "Mononoki Nerd Font", style = "Light"}
-  italic = { family = "Mononoki Nerd Font", style = "Light Italic"}
-  bold = { family = "Mononoki Nerd Font", style = "Bold"}
+  size = 18
+  normal = { family = "Victor Mono Nerd Font", style = "SemiBold"}
+  italic = { family = "Victor Mono Nerd Font", style = "SemiBold Italic"}
+  bold = { family = "Victor Mono Nerd Font", style = "Bold"}
 
 [terminal.shell]
   program = "/usr/local/bin/tmux"
