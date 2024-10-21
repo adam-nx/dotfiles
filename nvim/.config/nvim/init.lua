@@ -18,6 +18,30 @@ vim.opt.number = true
 --  Experiment for yourself to see if you like it!
 vim.opt.relativenumber = true
 
+vim.opt.grepprg = 'rg --vimgrep'
+
+vim.opt.foldmethod = 'expr'
+vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+
+vim.opt.formatoptions = 'jcroqlnt'
+vim.opt.fillchars = {
+  foldopen = '',
+  foldclose = '',
+  fold = ' ',
+  foldsep = ' ',
+  diff = '╱',
+  eob = ' ',
+}
+vim.opt.foldlevel = 99
+vim.opt.linebreak = true
+vim.opt.shortmess:append { W = true, I = true, c = true, C = true }
+vim.opt.signcolumn = 'yes'
+vim.opt.termguicolors = true
+vim.opt.virtualedit = 'block'
+vim.opt.wildmode = 'longest:full,full'
+vim.opt.smoothscroll = true
+vim.g.markdown_recommended_style = 0
+
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
 
@@ -60,7 +84,7 @@ vim.opt.splitbelow = true
 --  See `:help 'list'`
 --  and `:help 'listchars'`
 vim.opt.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.opt.listchars = { tab = '» ', trail = '·' }
 
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = 'split'
@@ -123,6 +147,9 @@ vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left wind
 vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+
+-- stylua: ignore
+vim.keymap.set( 'n', '<Leader>C', ':let @+ = expand("%")<CR><cmd>echo "Copied path to clipboard!"<CR>', { desc = 'Copy path to file' })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -359,9 +386,7 @@ require('lazy').setup {
           -- You can put your default mappings / updates / etc. in here
           --  All the info you're looking for is in `:help telescope.setup()`
           --
-          defaults = {
-            path_display = { 'shorten' },
-          },
+          -- defaults = { path_display = { 'shorten' }, },
           extensions = {
             ['ui-select'] = {
               require('telescope.themes').get_dropdown(),
@@ -599,7 +624,16 @@ require('lazy').setup {
           helm_ls = {},
           html = {},
           jsonls = {},
-          yamlls = {},
+          yamlls = {
+            capabilities = {
+              textDocument = {
+                foldingRange = {
+                  dynamicRegistration = false,
+                  lineFoldingOnly = true,
+                },
+              },
+            },
+          },
           marksman = {},
           ts_ls = {
             init_options = {
@@ -994,67 +1028,36 @@ require('lazy').setup {
     },
 
     {
-      'nvim-neotest/neotest',
-      -- optional = true,
+      'vim-test/vim-test',
+      lazy = false,
       dependencies = {
-        'nvim-neotest/nvim-nio',
-        'nvim-lua/plenary.nvim',
-        'antoinemadec/FixCursorHold.nvim',
-        'nvim-treesitter/nvim-treesitter',
-        { 'fredrikaverpil/neotest-golang', version = '*' },
+        -- 'tpope/vim-dispatch',
+        {
+          'preservim/vimux',
+          config = function()
+            -- vim.g['VimuxOrientation'] = 'h'
+            -- vim.g['VimuxHeight'] = '40%'
+          end,
+        },
       },
-
-      opts = function(_, opts)
-        opts.adapters = opts.adapters or {}
-        opts.adapters['neotest-golang'] = {
-          go_test_args = { '-v', '-count=1', '-timeout=120s', '-tags=debug,test,service_tests,system_tests', '-p=12' },
-          go_list_args = { '-tags=debug,test,service_tests,system_tests' },
+      config = function()
+        vim.g['test#strategy'] = 'vimux'
+        vim.g['test#go#gotest#options'] = '-tags=debug,test,service_tests,system_tests'
+        vim.g['test#echo_command'] = 0
+        vim.g['test#preserve_screen'] = 1
+        vim.g['test#custom_transformations'] = {
+          pillar = function(cmd)
+            return 'make svctest-harness && grc ' .. cmd
+          end,
         }
+        vim.g['test#transformation'] = 'pillar'
       end,
-
-      config = function(_, opts)
-        if opts.adapters then
-          local adapters = {}
-          for name, config in pairs(opts.adapters or {}) do
-            if type(name) == 'number' then
-              if type(config) == 'string' then
-                config = require(config)
-              end
-              adapters[#adapters + 1] = config
-            elseif config ~= false then
-              local adapter = require(name)
-              if type(config) == 'table' and not vim.tbl_isempty(config) then
-                local meta = getmetatable(adapter)
-                if adapter.setup then
-                  adapter.setup(config)
-                elseif adapter.adapter then
-                  adapter.adapter(config)
-                  adapter = adapter.adapter
-                elseif meta and meta.__call then
-                  adapter(config)
-                else
-                  error('Adapter ' .. name .. ' does not support setup')
-                end
-              end
-              adapters[#adapters + 1] = adapter
-            end
-          end
-          opts.adapters = adapters
-        end
-
-        require('neotest').setup(opts)
-      end,
-
       -- stylua: ignore
       keys = {
-        { '<leader>tf', function() require('neotest').run.run(vim.fn.expand '%') end, desc = '[t]est run [f]ile', },
-        { '<leader>tA', function() require('neotest').run.run(vim.uv.cwd()) end, desc = '[t]est [A]ll files', },
-        { '<leader>tS', function() require('neotest').run.run { suite = true } end, desc = '[t]est [S]uite', },
-        { '<leader>tn', function() require('neotest').run.run() end, desc = '[t]est [n]earest', },
-        { '<leader>tl', function() require('neotest').run.run_last() end, desc = '[t]est [l]ast', },
-        { '<leader>ts', function() require('neotest').summary.toggle() end, desc = '[t]est [s]ummary', },
-        { '<leader>to', function() require('neotest').output_panel.toggle() end, desc = '[t]est [o]utput panel', },
-        { '<leader>tt', function() require('neotest').run.stop() end, desc = '[t]est [t]erminate', },
+        { '<leader>tf', '<CMD>TestFile<CR>', desc = '[t]est [f]ile', },
+        { '<leader>tn', '<CMD>TestNearest<CR>', desc = '[t]est [n]earet', },
+        { '<leader>tl', '<CMD>TestLast<CR>', desc = '[t]est [l]ast', },
+        { '<leader>tv', '<CMD>TestVisit<CR>', desc = '[t]est [v]isit (go to the last test that ran)', },
       },
     },
 
@@ -1109,7 +1112,7 @@ require('lazy').setup {
     --
     --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
     --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
-    -- { import = 'custom.plugins' },
+    { import = 'custom.plugins' },
   },
   {
     ui = {

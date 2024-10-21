@@ -70,6 +70,8 @@ alias reload="source ~/.zshrc"
 alias l="ls -ltr"
 alias gsed=sed
 alias pbcopy="xclip -selection clipboard -i"
+alias cat=bat
+alias gogen="cd src; go generate -tags=generate ./...; cd -"
 
 [ -s "${HOME}/.scm_breeze/scm_breeze.sh" ] && source "${HOME}/.scm_breeze/scm_breeze.sh"
 
