@@ -515,16 +515,16 @@ require('lazy').setup {
             map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
 
             -- Find references for the word under your cursor.
-            map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+            map('gr', vim.lsp.buf.references, '[G]oto [R]eferences')
 
             -- Jump to the implementation of the word under your cursor.
             --  Useful when your language has ways of declaring types without an actual implementation.
-            map('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
+            map('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
 
             -- Jump to the type of the word under your cursor.
             --  Useful when you're not sure what type a variable is and you want to see
             --  the definition of its *type*, not where it was *defined*.
-            map('<leader>D', require('telescope.builtin').lsp_type_definitions, 'Type [D]efinition')
+            map('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
 
             -- Fuzzy find all the symbols in your current document.
             --  Symbols are things like variables, functions, types, etc.
@@ -532,11 +532,11 @@ require('lazy').setup {
 
             -- Fuzzy find all the symbols in your current workspace.
             --  Similar to document symbols, except searches over your entire project.
-            map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
+            map('<leader>sW', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
             -- Rename the variable under your cursor.
             --  Most Language Servers support renaming across files, etc.
-            map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+            map('<leader>r', vim.lsp.buf.rename, '[R]ename')
 
             -- Execute a code action, usually your cursor needs to be on top of an error
             -- or a suggestion from your LSP for this to activate.
@@ -575,10 +575,6 @@ require('lazy').setup {
               })
             end
 
-            -- The following code creates a keymap to toggle inlay hints in your
-            -- code, if the language server you are using supports them
-            --
-            -- This may be unwanted, since they displace some of your code
             if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
               map('<leader>th', function()
                 vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
@@ -587,23 +583,9 @@ require('lazy').setup {
           end,
         })
 
-        -- LSP servers and clients are able to communicate to each other what features they support.
-        --  By default, Neovim doesn't support everything that is in the LSP specification.
-        --  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
-        --  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
         local capabilities = vim.lsp.protocol.make_client_capabilities()
         capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
-        -- Enable the following language servers
-        --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
-        --
-        --  Add any additional override configuration in the following tables. Available keys are:
-        --  - cmd (table): Override the default command used to start the server
-        --  - filetypes (table): Override the default list of associated filetypes for the server
-        --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
-        --  - settings (table): Override the default settings passed when initializing the server.
-        --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
-        --
         -- list of available servers: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
         local servers = {
           bashls = {},
@@ -1033,6 +1015,12 @@ require('lazy').setup {
       dependencies = {
         -- 'tpope/vim-dispatch',
         {
+          'sebdah/vim-delve',
+          config = function()
+            vim.g['delve_use_vimux'] = 1
+          end,
+        },
+        {
           'preservim/vimux',
           config = function()
             -- vim.g['VimuxOrientation'] = 'h'
@@ -1043,6 +1031,7 @@ require('lazy').setup {
       config = function()
         vim.g['test#strategy'] = 'vimux'
         vim.g['test#go#gotest#options'] = '-tags=debug,test,service_tests,system_tests'
+        vim.g['test#go#delve#options'] = '-tags=debug,test,service_tests,system_tests'
         vim.g['test#echo_command'] = 0
         vim.g['test#preserve_screen'] = 1
         vim.g['test#custom_transformations'] = {
@@ -1058,6 +1047,8 @@ require('lazy').setup {
         { '<leader>tn', '<CMD>TestNearest<CR>', desc = '[t]est [n]earet', },
         { '<leader>tl', '<CMD>TestLast<CR>', desc = '[t]est [l]ast', },
         { '<leader>tv', '<CMD>TestVisit<CR>', desc = '[t]est [v]isit (go to the last test that ran)', },
+        { '<leader>td', '<CMD>DlvTestCurrent --build-flags="-tags=debug,test,service_tests,system_tests"<CR>', desc = 'debug nearest', },
+        { '<leader>b', '<CMD>DlvToggleBreakpoint<CR>', desc = 'toggle breakpoint', },
       },
     },
 
