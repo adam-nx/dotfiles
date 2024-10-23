@@ -1,0 +1,9 @@
+
+rename-window config
+send-keys "cd ~/dotfiles\rvim\r zs\r"
+
+neww -n pillar
+selectw -t 2
+send-keys "cd ~/code/pillar\rvim\r zs\r"
+
+
