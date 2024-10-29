@@ -72,6 +72,12 @@ alias gsed=sed
 alias pbcopy="xclip -selection clipboard -i"
 alias cat=bat
 alias gogen="cd src; go generate -tags=generate ./...; cd -"
+alias gup="git stash && gco master && gpl && gco - && grb master && git stash pop"
+
+
+totes() {
+    pillar login totp $1 2>&1 | cut -d" " -f2 | xclip -sel clip
+}
 
 [ -s "${HOME}/.scm_breeze/scm_breeze.sh" ] && source "${HOME}/.scm_breeze/scm_breeze.sh"
 

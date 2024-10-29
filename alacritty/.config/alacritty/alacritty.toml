@@ -11,7 +11,7 @@
   padding.y = 0
 
 [font]
-  size = 18
+  size = 12
   normal = { family = "Victor Mono Nerd Font", style = "SemiBold"}
   italic = { family = "Victor Mono Nerd Font", style = "SemiBold Italic"}
   bold = { family = "Victor Mono Nerd Font", style = "Bold"}
