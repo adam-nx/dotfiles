@@ -19,6 +19,7 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 
 vim.opt.grepprg = 'rg --vimgrep'
+vim.opt.grepformat = '%f:%l:%c:%m'
 
 vim.opt.foldmethod = 'expr'
 vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
@@ -114,8 +115,11 @@ vim.opt.incsearch = true
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
+--  See `:help y`
+--  See `:help <C-r>`
 
 vim.keymap.set('v', '/', 'y/<C-R>"<CR>')
+vim.keymap.set('v', '<leader>g', 'y:grep "<C-r>""<CR>')
 
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
@@ -151,7 +155,9 @@ vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower win
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 -- stylua: ignore
-vim.keymap.set( 'n', '<Leader>C', ':let @+ = expand("%")<CR><cmd>echo "Copied path to clipboard!"<CR>', { desc = 'Copy path to file' })
+vim.keymap.set('n', '<Leader>C', ':let @+ = fnamemodify(expand("%"), ":~:.")<CR><cmd>echo "Copied path to clipboard!"<CR>', { desc = 'Copy path to file' })
+-- stylua: ignore
+vim.keymap.set( 'n', '<Leader>R', ':let @+ = "https://gitlab.com/adalpha/pillar/-/blob/master/" . fnamemodify(expand("%"), ":~:.")<CR><cmd>echo "Copied path to clipboard!"<CR>', { desc = 'Copy remote path to file' })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -1090,6 +1096,15 @@ require('lazy').setup {
           { "<leader>zl", function() require("persistence").load({ last = true }) end, desc = "Restore Last Session" },
           { "<leader>zd", function() require("persistence").stop() end, desc = "Don't Save Current Session" },
         },
+    },
+
+    {
+      'wsdjeg/vim-fetch',
+      lazy = false,
+    },
+
+    {
+      'tpope/vim-unimpaired',
     },
 
     -- NOTE: Next step on your Neovim journey: Add/Configure additional plugins for Kickstart

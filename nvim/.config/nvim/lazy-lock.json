@@ -31,9 +31,11 @@
   "todo-comments.nvim": { "branch": "main", "commit": "ae0a2afb47cf7395dc400e5dc4e05274bf4fb9e0" },
   "tokyonight.nvim": { "branch": "main", "commit": "2c85fad417170d4572ead7bf9fdd706057bd73d7" },
   "vim-delve": { "branch": "master", "commit": "41d6ad294fb6dd5090f5f938318fc4ed73b6e1ea" },
+  "vim-fetch": { "branch": "master", "commit": "db3fd95eb0cf7e7e9effa1338b286db33e4a36c1" },
   "vim-fugitive": { "branch": "master", "commit": "d4877e54cef67f5af4f950935b1ade19ed6b7370" },
   "vim-sleuth": { "branch": "master", "commit": "be69bff86754b1aa5adcbb527d7fcd1635a84080" },
   "vim-test": { "branch": "master", "commit": "c090bfd93919888bb0b86e1ab707bc6a3095097f" },
+  "vim-unimpaired": { "branch": "master", "commit": "6d44a6dc2ec34607c41ec78acf81657248580bf1" },
   "vimux": { "branch": "master", "commit": "7db6b2f79d432ee3820668b1d4625311dbe1d0ad" },
   "which-key.nvim": { "branch": "main", "commit": "8badb359f7ab8711e2575ef75dfe6fbbd87e4821" }
 }

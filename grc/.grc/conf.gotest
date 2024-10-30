@@ -17,7 +17,7 @@ colour=red, yellow
 regexp=^FAIL$
 colour=bold red
 -
-regexp=[^\s]+\.go(:\d+)?
+regexp=^\s*[^\s]+\.go(:\d+)?
 colour=cyan
 -
 regexp=\sINFO\s
