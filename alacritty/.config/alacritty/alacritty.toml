@@ -4,7 +4,7 @@
 [window]
   startup_mode = "Maximized"
   decorations =  "None" 
-  opacity = 0.97
+  opacity = 0.99
   blur = true
   padding.x = 0
   padding.y = 0

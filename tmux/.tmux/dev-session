@@ -2,8 +2,12 @@
 rename-window config
 send-keys "cd ~/dotfiles\rvim\r zs\r"
 
-neww -n pillar
+neww -n journal
 selectw -t 2
+send-keys "cd ~/journal\rvim\r j\r"
+
+neww -n pillar
+selectw -t 3
 send-keys "cd ~/code/pillar\rvim\r zs\r"
 
 

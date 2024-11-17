@@ -49,7 +49,7 @@ setopt interactive_comments # allow comments in interactive shells
 setopt share_history # share history between different instances
 unsetopt correct_all # autocorrect commands
 
-export TERM="xterm-256color"
+# export TERM="xterm-256color"
 export TERMINAL="alacritty"
 export EDITOR='nvim'
 
@@ -66,14 +66,20 @@ export PATH="${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin:${ANDROID_H
 # Aliases
 alias vim=nvim
 alias vi=nvim
+alias less="less -R"
 alias reload="source ~/.zshrc"
 alias l="ls -ltr"
 alias gsed=sed
 alias pbcopy="xclip -selection clipboard -i"
-alias cat=bat
 alias gogen="cd src; go generate -tags=generate ./...; cd -"
 alias gup="git stash && gco master && gpl && gco - && grb master && git stash pop"
 
+
+prun() {
+	pushd ~/code/pillar/
+	make pillar 1>/dev/null && pillar doctor && pillar run
+	popd
+}
 
 totes() {
     pillar login totp $1 2>&1 | cut -d" " -f2 | xclip -sel clip
