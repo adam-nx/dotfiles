@@ -757,9 +757,7 @@ require('lazy').setup {
 
     {
       'nvim-treesitter/nvim-treesitter-textobjects',
-      dependencies = {
-        'nvim-treesitter/nvim-treesitter',
-      },
+      dependencies = { 'nvim-treesitter/nvim-treesitter' },
       main = 'nvim-treesitter.configs',
       opts = {
         textobjects = {
@@ -773,6 +771,15 @@ require('lazy').setup {
         },
       },
     },
+
+    -- {
+    --   'nvim-treesitter/nvim-treesitter-context',
+    --   dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    --   main = 'nvim-treesitter.configs',
+    --   opts = {
+    --     context = { enable = false, max_lines = 5, multiline_threshold = 10 },
+    --   },
+    -- },
 
     {
       'nvim-treesitter/nvim-treesitter',
@@ -800,7 +807,6 @@ require('lazy').setup {
           additional_vim_regex_highlighting = { 'ruby' },
         },
         indent = { enable = true, disable = { 'ruby' } },
-        context = { enable = true },
         incremental_selection = {
           enable = true,
           keymaps = {
