@@ -747,11 +747,6 @@ require('lazy').setup {
         statusline.section_location = function()
           return '%2l:%-2v'
         end
-
-        -- ... and there is more!
-        --  Check out: https://github.com/echasnovski/mini.nvim
-
-        -- require('mini.animate').setup()
       end,
     },
 
@@ -771,15 +766,6 @@ require('lazy').setup {
         },
       },
     },
-
-    -- {
-    --   'nvim-treesitter/nvim-treesitter-context',
-    --   dependencies = { 'nvim-treesitter/nvim-treesitter' },
-    --   main = 'nvim-treesitter.configs',
-    --   opts = {
-    --     context = { enable = false, max_lines = 5, multiline_threshold = 10 },
-    --   },
-    -- },
 
     {
       'nvim-treesitter/nvim-treesitter',
@@ -950,9 +936,6 @@ require('lazy').setup {
     {
       'folke/persistence.nvim',
       event = 'BufReadPre', -- this will only start session saving when an actual file was opened
-      opts = {
-        -- add any custom options here
-      },
        -- stylua: ignore
       keys = {
           { "<leader>zs", function() require("persistence").load() end, desc = "Restore Session" },
@@ -963,6 +946,7 @@ require('lazy').setup {
     },
 
     {
+      -- support file path locations (path/to/a/file:10:20)
       'wsdjeg/vim-fetch',
       lazy = false,
     },
@@ -971,41 +955,8 @@ require('lazy').setup {
       'tpope/vim-unimpaired',
     },
 
-    -- NOTE: Next step on your Neovim journey: Add/Configure additional plugins for Kickstart
-    --
-    -- require 'kickstart.plugins.debug',
-    -- require 'kickstart.plugins.indent_line',
-    -- require 'kickstart.plugins.lint',
     require 'kickstart.plugins.autopairs',
-    -- require 'kickstart.plugins.neo-tree',
-
-    -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
-    --    This is the easiest way to modularize your config.
-    --
-    --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-    --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
     { import = 'custom.plugins' },
-  },
-  {
-    ui = {
-      -- If you are using a Nerd Font: set icons to an empty table which will use the
-      -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
-      icons = vim.g.have_nerd_font and {} or {
-        cmd = '⌘',
-        config = '🛠',
-        event = '📅',
-        ft = '📂',
-        init = '⚙',
-        keys = '🗝',
-        plugin = '🔌',
-        runtime = '💻',
-        require = '🌙',
-        source = '📄',
-        start = '🚀',
-        task = '📌',
-        lazy = '💤 ',
-      },
-    },
   },
 }
 
