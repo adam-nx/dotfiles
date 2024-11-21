@@ -935,7 +935,12 @@ require('lazy').setup {
 
     {
       'folke/persistence.nvim',
-      event = 'BufReadPre', -- this will only start session saving when an actual file was opened
+      event = 'BufReadPre',
+      opts = {
+        dir = vim.fn.stdpath 'state' .. '/sessions/',
+        need = 1,
+        branch = true,
+      },
        -- stylua: ignore
       keys = {
           { "<leader>zs", function() require("persistence").load() end, desc = "Restore Session" },

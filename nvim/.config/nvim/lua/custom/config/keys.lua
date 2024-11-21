@@ -12,6 +12,9 @@ set('v', '<leader>g', 'y:grep "<C-r>""<CR>')
 --  See `:help hlsearch`
 set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
+-- F1 is Esc
+set({ 'n', 'i' }, '<F1>', '<Esc>')
+
 -- Diagnostic keymaps
 set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
