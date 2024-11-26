@@ -52,6 +52,7 @@ unsetopt correct_all # autocorrect commands
 # export TERM="xterm-256color"
 export TERMINAL="alacritty"
 export EDITOR='nvim'
+export LESS="--RAW-CONTROL-CHARS --use-color"
 
 export PATH=$HOME/bin:$PATH
 export PATH=$HOME/.local/bin:$PATH
@@ -66,7 +67,6 @@ export PATH="${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin:${ANDROID_H
 # Aliases
 alias vim=nvim
 alias vi=nvim
-alias less="less -R"
 alias reload="source ~/.zshrc"
 alias l="ls -ltr"
 alias gsed=sed

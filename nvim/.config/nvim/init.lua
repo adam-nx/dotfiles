@@ -243,7 +243,7 @@ require('lazy').setup {
         vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
         vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
         vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
-        vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
+        vim.keymap.set('n', '<leader>sd', builtin.lsp_document_symbols, { desc = '[S]earch [D]ocument symbols' })
         vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
         vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
         vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
@@ -822,11 +822,6 @@ require('lazy').setup {
 
             -- Nested configurations for `:Journal <type> <type> ... <date-modifier>`
             entries = {
-              day = {
-                format = '%Y/%m-%B/daily/%d-%A', -- Format of the journal entry in the filesystem.
-                template = '# %A %B %d %Y\n', -- Optional. Template used when creating a new journal entry
-                frequency = { day = 1 }, -- Optional. The frequency of the journal entry. Used for `:Journal next`, `:Journal -2` etc
-              },
               week = {
                 format = '%Y/%m-%B/weekly/week-%W',
                 template = function(date)
@@ -844,22 +839,9 @@ require('lazy').setup {
                 frequency = { day = 7 },
                 date_modifier = 'monday', -- Optional. Date modifier applied before other modifier given to `:Journal`
               },
-              month = {
-                format = '%Y/%m-%B/%B',
-                template = '# %B %Y\n',
-                frequency = { month = 1 },
-              },
-              year = {
-                format = '%Y/%Y',
-                template = '# %Y\n',
-                frequency = { year = 1 },
-              },
             },
           },
         }
-
-        -- -- stylua: ignore
-        --   vim.keymap.set('n', '<leader>j', function() require('journal').command 'week' end, { desc = 'Weekly [J]ournal entry' })
       end,
       -- stylua: ignore
       keys = {
@@ -916,7 +898,11 @@ require('lazy').setup {
       dependencies = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope.nvim' },
       config = function()
         local harpoon = require 'harpoon'
-        harpoon:setup {}
+        harpoon:setup {
+          global_settings = {
+            mark_branch = true,
+          },
+        }
       end,
       keys = function()
         -- stylua: ignore
@@ -935,19 +921,13 @@ require('lazy').setup {
 
     {
       'folke/persistence.nvim',
+      -- there's an autocmd that will load the session on start
       event = 'BufReadPre',
       opts = {
         dir = vim.fn.stdpath 'state' .. '/sessions/',
         need = 1,
         branch = true,
       },
-       -- stylua: ignore
-      keys = {
-          { "<leader>zs", function() require("persistence").load() end, desc = "Restore Session" },
-          { "<leader>zS", function() require("persistence").select() end,desc = "Select Session" },
-          { "<leader>zl", function() require("persistence").load({ last = true }) end, desc = "Restore Last Session" },
-          { "<leader>zd", function() require("persistence").stop() end, desc = "Don't Save Current Session" },
-        },
     },
 
     {
@@ -959,6 +939,24 @@ require('lazy').setup {
     {
       'tpope/vim-unimpaired',
     },
+
+    -- {
+    --   'nvimtools/none-ls.nvim',
+    --   config = function()
+    --     local null_ls = require 'null-ls'
+    --     null_ls.setup {
+    --       sources = {
+    --         null_ls.builtins.diagnostics.protolint.with {
+    --           command = 'protolint',
+    --           filetypes = { 'proto' },
+    --           args = function(params)
+    --             return { '--config_path', '/home/adam/code/pillar/src/.protolint.yaml', params.bufname }
+    --           end,
+    --         },
+    --       },
+    --     }
+    --   end,
+    -- },
 
     require 'kickstart.plugins.autopairs',
     { import = 'custom.plugins' },
