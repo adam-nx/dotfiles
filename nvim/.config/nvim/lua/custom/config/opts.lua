@@ -115,4 +115,5 @@ vim.g.go_build_tags = 'test,service_tests,system_tests'
 
 vim.cmd [[ packadd cfilter  ]]
 
+vim.opt.spell = true
 vim.opt.spelllang = 'en_gb'
