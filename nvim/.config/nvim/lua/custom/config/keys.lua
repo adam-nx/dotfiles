@@ -42,3 +42,5 @@ set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 set('n', '<Leader>C', ':let @+ = fnamemodify(expand("%"), ":~:.")<CR><cmd>echo "Copied path to clipboard!"<CR>', { desc = 'Copy path to file' })
 -- stylua: ignore
 set( 'n', '<Leader>R', ':let @+ = "https://gitlab.com/adalpha/pillar/-/blob/master/" . fnamemodify(expand("%"), ":~:.")<CR><cmd>echo "Copied path to clipboard!"<CR>', { desc = 'Copy remote path to file' })
+
+set('n', '<F3>', ':set spell!<CR>', { desc = 'Enable spelling' })
