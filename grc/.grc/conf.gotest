@@ -28,3 +28,4 @@ colour=yellow
 -
 regexp=\sERROR\s
 colour=red
+-

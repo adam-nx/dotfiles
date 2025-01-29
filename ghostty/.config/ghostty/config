@@ -1,0 +1,10 @@
+theme = "tokyonight"
+
+font-family = "VictorMono Nerd Font"
+font-size = 17
+
+window-decoration = false
+
+command = "/usr/local/bin/tmux -u new-session -A -D -s x"
+
+background-opacity = 0.95

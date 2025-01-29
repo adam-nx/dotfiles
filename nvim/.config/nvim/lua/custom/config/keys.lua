@@ -14,6 +14,8 @@ set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- F1 is Esc
 set({ 'n', 'i' }, '<F1>', '<Esc>')
+set({ 'n', 'v' }, '<C-s>', ':update<CR>')
+set({ 'i' }, '<C-s>', '<Esc>:update<CR>')
 
 -- Diagnostic keymaps
 set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
@@ -44,3 +46,6 @@ set('n', '<Leader>C', ':let @+ = fnamemodify(expand("%"), ":~:.")<CR><cmd>echo "
 set( 'n', '<Leader>R', ':let @+ = "https://gitlab.com/adalpha/pillar/-/blob/master/" . fnamemodify(expand("%"), ":~:.")<CR><cmd>echo "Copied path to clipboard!"<CR>', { desc = 'Copy remote path to file' })
 
 set('n', '<F3>', ':set spell!<CR>', { desc = 'Enable spelling' })
+
+set('v', 'J', ":m '>+1<CR>gv=gv")
+set('v', 'K', ":m '<-2<CR>gv=gv")

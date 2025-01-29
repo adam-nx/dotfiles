@@ -2,6 +2,16 @@
 #  ~ / . z s h r c   #
 ######################
 
+# clear
+# COLUMNS=$(tput cols) 
+# title="Hello world!" 
+# echo
+# echo
+# printf "%*s\n" $(((${#title}+$COLUMNS)/2)) 'h e l l o ,      a d a m'
+# echo
+# echo
+#
+
 fpath+=~/.zsh_functions
 fpath+=~/.zsh/zsh-completions/src
 
@@ -25,6 +35,8 @@ zmodload -i zsh/complist
 set -o emacs
 autoload -U select-word-style
 select-word-style bash
+
+source ~/.zsh/zsh-abbr/zsh-abbr.zsh
 
 #####  key bindings  ######
 bindkey '^[[1;3C' forward-word
@@ -65,25 +77,14 @@ export PATH="${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/tools/bin:${ANDROID_H
 
 
 # Aliases
+alias vimdiff='nvim -d'
 alias vim=nvim
 alias vi=nvim
 alias reload="source ~/.zshrc"
 alias l="ls -ltr"
 alias gsed=sed
 alias pbcopy="xclip -selection clipboard -i"
-alias gogen="cd src; go generate -tags=generate ./...; cd -"
-alias gup="git stash && gco master && gpl && gco - && grb master && git stash pop"
-
-
-prun() {
-	pushd ~/code/pillar/
-	make pillar 1>/dev/null && pillar doctor && pillar run
-	popd
-}
-
-totes() {
-    pillar login totp $1 2>&1 | cut -d" " -f2 | xclip -sel clip
-}
+# abbr gup="git stash && gco master && gpl && gco - && grb master && git stash pop"
 
 [ -s "${HOME}/.scm_breeze/scm_breeze.sh" ] && source "${HOME}/.scm_breeze/scm_breeze.sh"
 
@@ -105,3 +106,13 @@ bindkey "$terminfo[kcud1]" history-substring-search-down
 
 
 eval "$(starship init zsh)"
+
+## [Completion]
+## Completion scripts setup. Remove the following line to uninstall
+[[ -f /home/adam/.dart-cli-completion/zsh-config.zsh ]] && . /home/adam/.dart-cli-completion/zsh-config.zsh || true
+## [/Completion]
+
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

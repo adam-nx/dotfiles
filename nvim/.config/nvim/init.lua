@@ -697,6 +697,7 @@ require('lazy').setup {
         vim.cmd.colorscheme 'tokyonight'
 
         -- You can configure highlights by doing something like:
+        vim.opt.background = 'dark'
         vim.cmd.hi 'Comment gui=none'
         vim.cmd [[
         highlight Normal guibg=none
@@ -830,6 +831,9 @@ require('lazy').setup {
                   return '# Week %W - %A %d/%m -> '
                     .. end_date
                     .. ' %Y\n\n'
+                    .. '    ╭───────────────────────────────────────╮\n'
+                    .. '    │ Flower : Mountain : Still Water : Sky │\n'
+                    .. '    ╰───────────────────────────────────────╯\n\n'
                     .. '## Monday\n\n'
                     .. '## Tuesday\n\n'
                     .. '## Wednesday\n\n'
@@ -884,7 +888,7 @@ require('lazy').setup {
       -- stylua: ignore
       keys = {
         { '<leader>tf', '<CMD>TestFile<CR>', desc = '[t]est [f]ile', },
-        { '<leader>tn', '<CMD>TestNearest<CR>', desc = '[t]est [n]earet', },
+        { '<leader>tt', '<CMD>TestNearest<CR>', desc = '[tt]est nearest', },
         { '<leader>tl', '<CMD>TestLast<CR>', desc = '[t]est [l]ast', },
         { '<leader>tv', '<CMD>TestVisit<CR>', desc = '[t]est [v]isit (go to the last test that ran)', },
         { '<leader>td', '<CMD>DlvTestCurrent --build-flags="-tags=debug,test,service_tests,system_tests"<CR>', desc = 'debug nearest', },
