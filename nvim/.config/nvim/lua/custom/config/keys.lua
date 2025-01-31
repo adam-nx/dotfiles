@@ -49,3 +49,5 @@ set('n', '<F3>', ':set spell!<CR>', { desc = 'Enable spelling' })
 
 set('v', 'J', ":m '>+1<CR>gv=gv")
 set('v', 'K', ":m '<-2<CR>gv=gv")
+
+set('v', '<leader>t', ":!column -t -s '|' -o '|'<CR>", { desc = 'format markdown [t]able' }) -- https://heitorpb.github.io/bla/format-tables-in-vim/

@@ -857,7 +857,6 @@ require('lazy').setup {
       'vim-test/vim-test',
       lazy = false,
       dependencies = {
-        -- 'tpope/vim-dispatch',
         {
           'sebdah/vim-delve',
           config = function()
@@ -867,8 +866,8 @@ require('lazy').setup {
         {
           'preservim/vimux',
           config = function()
-            -- vim.g['VimuxOrientation'] = 'h'
-            -- vim.g['VimuxHeight'] = '40%'
+            vim.g['VimuxOrientation'] = 'h'
+            vim.g['VimuxHeight'] = '40%'
           end,
         },
       },
@@ -877,7 +876,7 @@ require('lazy').setup {
         vim.g['test#go#gotest#options'] = '-v -tags=debug,test,service_tests,system_tests'
         vim.g['test#go#delve#options'] = '-tags=debug,test,service_tests,system_tests'
         vim.g['test#echo_command'] = 0
-        vim.g['test#preserve_screen'] = 1
+        vim.g['test#preserve_screen'] = 1 -- do not clear the screen before executing the test command
         vim.g['test#custom_transformations'] = {
           pillar = function(cmd)
             return 'make svctest-harness && grc ' .. cmd
@@ -894,33 +893,6 @@ require('lazy').setup {
         { '<leader>td', '<CMD>DlvTestCurrent --build-flags="-tags=debug,test,service_tests,system_tests"<CR>', desc = 'debug nearest', },
         { '<leader>b', '<CMD>DlvToggleBreakpoint<CR>', desc = 'toggle breakpoint', },
       },
-    },
-
-    {
-      'ThePrimeagen/harpoon',
-      branch = 'harpoon2',
-      dependencies = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope.nvim' },
-      config = function()
-        local harpoon = require 'harpoon'
-        harpoon:setup {
-          global_settings = {
-            mark_branch = true,
-          },
-        }
-      end,
-      keys = function()
-        -- stylua: ignore
-        local keys = {
-            { '<leader>a', function() require('harpoon'):list():add() end, desc = 'H[a]rpoon File', },
-            { '<leader>A', function() local harpoon = require 'harpoon' harpoon.ui:toggle_quick_menu(harpoon:list()) end, desc = 'H[A]rpoon Quick Menu',
-          },
-        }
-        for i = 1, 9 do
-           -- stylua: ignore
-          table.insert(keys, { '<leader>' .. i, function() require('harpoon'):list():select(i) end, })
-        end
-        return keys
-      end,
     },
 
     {
