@@ -40,7 +40,7 @@ export PATH=${PATH}:${GOPATH}/bin
 
 # Added by pillar client setup mobile
 export PATH="$PATH:$HOME/fvm/default/bin:$HOME/.pub-cache/bin"
-. "$HOME/.cargo/env"
+# . "$HOME/.cargo/env"
 
 # Android SDK configuration
 export ANDROID_HOME=$HOME/Android/Sdk

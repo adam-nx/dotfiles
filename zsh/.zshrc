@@ -2,16 +2,6 @@
 #  ~ / . z s h r c   #
 ######################
 
-# clear
-# COLUMNS=$(tput cols) 
-# title="Hello world!" 
-# echo
-# echo
-# printf "%*s\n" $(((${#title}+$COLUMNS)/2)) 'h e l l o ,      a d a m'
-# echo
-# echo
-#
-
 fpath+=~/.zsh_functions
 fpath+=~/.zsh/zsh-completions/src
 
@@ -98,7 +88,7 @@ source <(kubectl completion zsh)
 
 export HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1
 export HISTORY_SUBSTRING_SEARCH_FUZZY=1
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 bindkey "$terminfo[kcuu1]" history-substring-search-up
@@ -116,3 +106,5 @@ eval "$(starship init zsh)"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+[ -s "/home/adam/.scm_breeze/scm_breeze.sh" ] && source "/home/adam/.scm_breeze/scm_breeze.sh"
